@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,7 +89,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  uint32_t counter = 0;
   /* USER CODE END 2 */
 
   /* Initialize led */
@@ -111,9 +111,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  printf("\r\n=== STM32G474 finger booted, SYSCLK=%lu Hz ===\r\n",
+         (unsigned long)HAL_RCC_GetSysClockFreq());
+
   while (1)
   {
-
+    BSP_LED_Toggle(LED_GREEN);
+    printf("[%lu] tick #%lu, uptime=%lu ms\r\n",
+           (unsigned long)HAL_GetTick(), (unsigned long)counter++,
+           (unsigned long)HAL_GetTick());
+    HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
